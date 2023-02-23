@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:obi_tec_movie_platform/app/controllers/movie_controller.dart';
 import 'package:obi_tec_movie_platform/app/core/ui/styles/colors_app.dart';
 import 'package:obi_tec_movie_platform/app/core/ui/widgets/movie_tile.dart';
+import 'package:obi_tec_movie_platform/app/pages/movie/movie_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,6 +17,7 @@ class _HomePageState extends State<HomePage> {
 
   _load() async {
     await _controller.loadMovies();
+    setState(() {});
   }
 
   @override
@@ -48,7 +50,14 @@ class _HomePageState extends State<HomePage> {
               return MovieTile(
                 thumbnail: movie.posterPath,
                 title: movie.title,
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MoviePage(id: movie.id),
+                    ),
+                  );
+                },
               );
             },
           ),

@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.marlonlamartine.obi_tec_movie_platform">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="obi_tec_movie_platform"
         android:name="${applicationName}"

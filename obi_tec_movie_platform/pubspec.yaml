@@ -39,6 +39,8 @@ dependencies:
   lottie: ^2.2.0
   shared_preferences: ^2.0.17  
   dio: ^5.0.0
+  video_player: ^2.5.1
+  chewie: ^1.4.0
 
 dev_dependencies:
   flutter_test:
