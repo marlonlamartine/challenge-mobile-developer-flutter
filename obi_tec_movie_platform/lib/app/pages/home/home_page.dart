@@ -37,8 +37,14 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: context.colorsApp.primary,
           actions: [
             IconButton(
-              icon: const Icon(Icons.movie_filter_outlined),
+              icon: const Icon(Icons.home_outlined),
               onPressed: _load,
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/favorites');
+              },
+              icon: const Icon(Icons.star_border),
             ),
           ],
         ),

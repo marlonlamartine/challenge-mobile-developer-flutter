@@ -11,7 +11,6 @@ class MovieController {
   MovieDataResponse? movieDataResponse;
   List<MovieModel> moviesListed = [];
   MovieDetailModel? movieDetailModel;
-  //List<VideoModel> videos = [];
   VideoModel? videoModel;
 
   Future<void> loadMovies() async {
@@ -27,7 +26,6 @@ class MovieController {
   }
 
   Future<void> loadVideoFromMovie(int id) async {
-    //int idteste = 646389;
     final data = await movieRepository.getVideoFromMovie(id);
     for (var element in data.results) {
       if (element.type == 'Trailer' && element.site == 'YouTube') {

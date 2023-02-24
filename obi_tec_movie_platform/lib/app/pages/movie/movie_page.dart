@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:obi_tec_movie_platform/app/controllers/favorites_controller.dart';
 
 import 'package:obi_tec_movie_platform/app/core/ui/styles/colors_app.dart';
 import 'package:obi_tec_movie_platform/app/core/ui/widgets/video_player_view.dart';
+import 'package:provider/provider.dart';
 
 import '../../controllers/movie_controller.dart';
 
@@ -19,17 +21,106 @@ class MoviePage extends StatefulWidget {
 
 class _MoviePageState extends State<MoviePage> {
   final _controller = MovieController();
-
+  FavoritesController favoritesController = FavoritesController();
   bool isFaved = false;
 
-  //bool get changeFav => !isFaved;
+  @override
+  void initState() {
+    super.initState();
+    _loadMovie();
+    //_selectedFav();
+  }
 
-  bool changeFav() {
+  /*_selectedFav() async {
+    if (favoritesController.favoritesList.contains(widget.id)) {
+      isFaved = true;
+    } else {
+      isFaved = false;
+    }
+    print(isFaved);
+  }*/
+
+  void _showConfirmFav() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Deseja Favoritar este filme?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                'Cancelar',
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                //favoritesController.saveFavorite(widget.id);
+                favoritesController.saveFavoriteMovie(
+                  _controller.movieDetailModel!.id,
+                  _controller.movieDetailModel!.posterPath,
+                  _controller.movieDetailModel!.title,
+                );
+                //changeFav();
+
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                'Confirmar',
+                style: TextStyle(color: Colors.green),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showConfirmDesfav() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Deseja retirar este filme dos favoritos?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                'Cancelar',
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                //favoritesController.deleteFavorite(widget.id);
+                favoritesController.deleteFavoriteMovie(widget.id);
+                //changeFav();
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                'Confirmar',
+                style: TextStyle(color: Colors.green),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  /*bool changeFav() {
     setState(() {
       isFaved = !isFaved;
     });
     return isFaved;
-  }
+  }*/
 
   _loadMovie() async {
     await _controller.loadMovieDetails(widget.id);
@@ -38,14 +129,14 @@ class _MoviePageState extends State<MoviePage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    _loadMovie();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    favoritesController = context.watch<FavoritesController>();
     String keyVideo = _controller.videoModel?.key ?? '';
+    isFaved = favoritesController.isInTheList(widget.id);
+
+    //bool isFaved = favoritesController.favoritesList.contains(widget.id);
+    //isFaved = getfav();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorsApp.instance.primary,
@@ -84,7 +175,9 @@ class _MoviePageState extends State<MoviePage> {
                   ),
                 ),
                 IconButton(
-                  onPressed: changeFav,
+                  onPressed: () {
+                    isFaved ? _showConfirmDesfav() : _showConfirmFav();
+                  },
                   icon: Icon(
                     size: 30,
                     Icons.star,
