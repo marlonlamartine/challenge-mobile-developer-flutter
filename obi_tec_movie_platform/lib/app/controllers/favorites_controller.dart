@@ -10,7 +10,6 @@ class FavoritesController extends ChangeNotifier {
   MovieDetailModel? mdm;
   final List<int> _idFavoritesList = [];
   List<FavoritesModel> favoriteMovies = [];
-  //List<FavoritesModel> get favorites => favoriteMovies.toList();
 
   UnmodifiableListView<int> get favoritesList =>
       UnmodifiableListView(_idFavoritesList);
@@ -54,22 +53,4 @@ class FavoritesController extends ChangeNotifier {
     _idFavoritesList.remove(favoriteId);
     notifyListeners();
   }
-
-  /*Future<MovieDetailModel> searchFavoriteMovie(int id) async {
-    final data = await movieRepository.getMovieById(id);
-    return data;
-  }
-
-  Future<void> loadFavorites() async {
-    for (var id in _idFavoritesList) {
-      final data = await movieRepository.getMovieById(id);
-      favoriteMovies.add(
-        FavoritesModel(
-          id: data.id,
-          thumbnail: data.posterPath,
-          title: data.title,
-        ),
-      );
-    }
-  }*/
 }

@@ -1,89 +1,48 @@
-Obi Tec - Mobile Developer Flutter
+MovieApp
 ===================
-O objetivo deste desafio é principalmente conhecermos um pouco mais de você que se candidatou para a nossa vaga de Mobile Developer Flutter.
+O aplicativo MovieApp permite aos usuários acessarem uma lista de filmes fornecidos pela plataforma [themoviedb](https://www.themoviedb.org/). O objetivo é possibilitar ao usuário visualizar os filmes populares da plataforma, além de ver detalhes de cada filme e poder selecioná-los para uma lista separada de favoritos. 
 
-É importante ressaltar que solução do desafio não tem um gabarito. Vamos verificar as técnicas que utilizaram para a criação do serviço, como vocês encaram este desafio e também, claro, a entrega da solução.   
-
-As regras e os requisitos técnicos estão detalhadas abaixo, boa sorte!
-
-_Time Obi.Tec_
 # Especificações Técnicas
-- **Linguagem:** [Dart](https://dart.dev/)
-- **UI:** [Flutter](https://flutter.dev/)
-- **Gerenciamento de estado**:  [Provider](https://pub.dev/packages/provider)  ou [GetX](https://pub.dev/packages/get) (opcional)
-- **Idioma de escrita do código:** Inglês
+- **Dart:** 2.18.6
+- **Flutter:** 3.3.10
 
-# Requisitos
-## Contextualização
-Considere que para o módulo de filmes do **Aplicativo Obi Tec**, será desenvolvido um funcionalidade com o intuito de apresentar os filmes disponíveis atualmente. O desafio consiste em criar uma aplicação para a listagem de filmes e a possibilidade de visualizar mais informações sobre o mesmo, atendendo aos critérios mínimos de aceitação.
+## Pacotes
+- **lottie:** ^2.2.0
+- **dio:** ^5.0.0
+- **video_player:** ^2.5.1
+- **chewie:** ^1.4.0
+- **provider:** ^6.0.5
+- **shared_preferences:** ^2.0.17
 
+# Funcionamento
+## Requisitos
+Para ter acesso à lista de filmes e outras informações é necessário ter um [requestToken](https://developers.themoviedb.org/4/getting-started/authorization) que é fornecido pelo próprio site, após criar uma conta e prosseguir até o modo api do site. Contudo, por ser de díficil manuseio do token para isnerção dentro do app, foi decidido manter um requestToken padrão dentro do próprio código.
 
-## The Movie Database API
-Para obter os dados necessários para a implementação do aplicativo, será necessário a utilização do [Movie Database API](https://developers.themoviedb.org/) disponível publicamente.
+## Passo a passo
+Inicialmente o usuário acessa o aplicativo e visualiza a tela de splashpage, onde possui apenas a ação de clicar no botão de acessar.
 
-Para isso, inicialmente é necessário a implementação do serviço para obter um [token de autenticação](https://developers.themoviedb.org/4/auth/user-authorization-1) para efetuar as requests subsequentes.
+![splashscreen](assets/images/1.jpg)
 
-Com posse do token, é possível realizar a request para [listar](https://developers.themoviedb.org/4/list) os filmes.
+Após clicar no botão de acessar o usuário pode visualizar a tela de home page, contendo filmes listados por poster e título. 
 
-## Histórias do Usuário
-- **Sendo** um usuário da Plataforma Obi Tec
-- **Quero** listar os filmes da Plataforma
-- **Para** que seja possível visualizar informações adicionais do filme e assistir o trailer.
+![splashscreen](assets/images/2.jpg)
 
-### Critérios mínimos de aceite: 
-#### Cenário: listar filmes cadastrados 
-- **Dado** que estou na Plataforma Obi Tec
-- **Quando** clico no ícone do AppBar 'Filmes'
-- **Então** abre a tela de listagem de filmes
-- **E** exibe lista dos filmes
-- **E** para cada registro exibe o thumbnail e o título do filme
-- **E** exibe um ícone para visualizar mais informações
+Ao clicar no texto "Ver mais" de algum filme é possível visualizar uma página particular de cada filme, onde inclui um vídeo trailer, o título, a descrição, a média de avaliação dos usuários e um ícone de estrela para favoritar o filme.
 
-#### Cenário: visualizar informações do filme
-- **Dado** que estou na listagem de filmes
-- **Quando** clico no ícone de visualizar informações
-- **Então** abre a tela de visualização do filme
-- **E** exibe um player de vídeo com o trailer do filme, título, sinopse, avaliação dos usuários
-- **E** exibe uma opção para favoritar o filme
-##### Cenário alternativo #1
-- **Dado** que estou na tela de visualização do filme e que o filme não esta favoritado
-- **Quando** clico no ícone de favoritar
-- **Então** o filme é adicionado na minha lista de desejos
-- **E** retorna mensagem de sucesso
-##### Cenário alternativo #2
-- **Dado** que estou na tela de visualização do filme e que o filme está favoritado
-- **Quando** clico no icone de desfavoritar
-- **Então** o filme é removido na minha lista de desejos
-- **E** retorna mensagem de sucesso
+![splashscreen](assets/images/3.jpg)
 
-#### Cenário: visualizar minha lista de desejos
-- **Dado** que estou na Plataforma Obi Tec
-- **Quando** clico no ícone do AppBar 'Lista de Desejos'
-- **Então** abre a tela com a listagem dos filmes favoritados
-- **E** exibe a thumbnail e título do filme
-- **E** exibe uma opção para visualizar mais informações sobre o filme
+Ao clicar no ícone de estrela aparece uma tela de confirmação de ação sobre a possibilidade de favoritar ou desfavoritar o filme, dependendo se a ação já foi realizada ou não.
 
-# Desejável
-- Implementação do AppBar
-- Gerenciamento de estado para a lista de desejos
-- Manter a lista de desejos mesmo após o fechamento do aplicativo
-- Documentação da arquitetura de solução
+![splashscreen](assets/images/4.jpg)
 
-# Critérios de avaliação
-- Qualidade de escrita do código
-- Organização e estrutura do projeto
-- Lógica da solução implementada
-- Utilização do Git (quantidade e descrição dos commits, Git Flow, ...)
-- Funcionalidades extras
+![splashscreen](assets/images/5.jpg)
 
-# Instruções de entrega
-1. Crie um fork do repositório no seu GitHub
-2. Faça o push do código desenvolvido no seu Github
-3. Inclua um README.md explicando como rodar o projeto
-4. Inclua um arquivo chamado COMMENTS.md explicando
-  - Decisão da arquitetura utilizada
-  - Lista de bibliotecas de terceiros utilizadas
-  - O que você melhoraria se tivesse mais tempo
-  - Quais requisitos obrigatórios que não foram entregues (se houver)
-5. Informe ao recrutador quando concluir o desafio junto com o link do repositório
-6. Após revisão do projeto junto com a equipe de desenvolvimento deixe seu repositório privado
+![splashscreen](assets/images/6.jpg)
+
+Caso a tela de favoritos seja acessada sem qualquer filme cadastrado a seguinte tela é exibida
+
+![splashscreen](assets/images/7.jpg)
+
+Mas caso algum filme tenha sido inserido na lista de desejos, então uma tela semelhante é exibida
+
+![splashscreen](assets/images/8.jpg)

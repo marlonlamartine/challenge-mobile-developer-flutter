@@ -28,17 +28,7 @@ class _MoviePageState extends State<MoviePage> {
   void initState() {
     super.initState();
     _loadMovie();
-    //_selectedFav();
   }
-
-  /*_selectedFav() async {
-    if (favoritesController.favoritesList.contains(widget.id)) {
-      isFaved = true;
-    } else {
-      isFaved = false;
-    }
-    print(isFaved);
-  }*/
 
   void _showConfirmFav() {
     showDialog(
@@ -59,13 +49,11 @@ class _MoviePageState extends State<MoviePage> {
             ),
             TextButton(
               onPressed: () {
-                //favoritesController.saveFavorite(widget.id);
                 favoritesController.saveFavoriteMovie(
                   _controller.movieDetailModel!.id,
                   _controller.movieDetailModel!.posterPath,
                   _controller.movieDetailModel!.title,
                 );
-                //changeFav();
 
                 Navigator.of(context).pop();
               },
@@ -99,9 +87,7 @@ class _MoviePageState extends State<MoviePage> {
             ),
             TextButton(
               onPressed: () {
-                //favoritesController.deleteFavorite(widget.id);
                 favoritesController.deleteFavoriteMovie(widget.id);
-                //changeFav();
                 Navigator.of(context).pop();
               },
               child: const Text(
@@ -115,13 +101,6 @@ class _MoviePageState extends State<MoviePage> {
     );
   }
 
-  /*bool changeFav() {
-    setState(() {
-      isFaved = !isFaved;
-    });
-    return isFaved;
-  }*/
-
   _loadMovie() async {
     await _controller.loadMovieDetails(widget.id);
     await _controller.loadVideoFromMovie(widget.id);
@@ -133,9 +112,6 @@ class _MoviePageState extends State<MoviePage> {
     favoritesController = context.watch<FavoritesController>();
     String keyVideo = _controller.videoModel?.key ?? '';
     isFaved = favoritesController.isInTheList(widget.id);
-
-    //bool isFaved = favoritesController.favoritesList.contains(widget.id);
-    //isFaved = getfav();
 
     return Scaffold(
       appBar: AppBar(

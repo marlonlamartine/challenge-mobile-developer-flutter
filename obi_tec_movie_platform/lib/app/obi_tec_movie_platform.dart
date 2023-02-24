@@ -15,7 +15,6 @@ class ObiTecMoviePlatform extends StatelessWidget {
         '/': (context) => const SplashPage(),
         '/home': (context) => const HomePage(),
         '/favorites': (context) => const FavoritesPage(),
-        //'/movie': (context) => const MoviePage(),
       },
     );
   }
